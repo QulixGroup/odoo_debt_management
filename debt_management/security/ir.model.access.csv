@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ar_dashboard_user,aged.receivables.dashboard.user,model_aged_receivables_dashboard,account.group_account_invoice,1,0,0,0
+access_ar_dashboard_manager,aged.receivables.dashboard.manager,model_aged_receivables_dashboard,account.group_account_manager,1,1,1,1
+access_ar_export_wizard,aged.receivables.export.wizard,model_aged_receivables_export_wizard,account.group_account_invoice,1,1,1,1
+access_ar_export_config_user,aged.receivables.export.config.user,model_aged_receivables_export_config,base.group_user,1,0,0,0
+access_ar_export_config_manager,aged.receivables.export.config.manager,model_aged_receivables_export_config,account.group_account_manager,1,1,1,1
+access_debt_promise_payment_user,debt.promise.payment.user,model_debt_promise_payment,account.group_account_invoice,1,1,1,1
+access_debt_promise_payment_manager,debt.promise.payment.manager,model_debt_promise_payment,account.group_account_manager,1,1,1,1
+access_debt_promise_wizard_user,debt.promise.wizard.user,model_debt_promise_wizard,account.group_account_invoice,1,1,1,1
+access_followup_report_wizard_user,followup.report.wizard.user,model_followup_report_wizard,account.group_account_user,1,1,1,1
+access_followup_report_wizard_manager,followup.report.wizard.manager,model_followup_report_wizard,account.group_account_manager,1,1,1,1
+access_followup_report_wizard_invoice,followup.report.wizard.invoice,model_followup_report_wizard,account.group_account_invoice,1,1,1,1
+access_account_followup_pending_check,access.account.followup.pending.check,model_account_followup_pending_check,account.group_account_invoice,1,1,1,1

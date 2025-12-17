@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_debt_promise_payment_list" model="ir.ui.view">
+        <field name="name">debt.promise.payment.list</field>
+        <field name="model">debt.promise.payment</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'paid'" decoration-danger="state == 'overdue'">
+                <field name="partner_id"/>
+                <field name="promise_date"/>
+                <field name="amount" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="note"/>
+                <field name="invoice_ids"
+                       widget="many2many_tags"
+                       domain="[('partner_id', '=', partner_id), ('move_type', '=', 'out_invoice'), ('state', '=', 'posted'), ('payment_state', 'in', ['not_paid', 'partial'])]">
+                </field>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_debt_promise_payment_form" model="ir.ui.view">
+        <field name="name">debt.promise.payment.form</field>
+        <field name="model">debt.promise.payment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="promise_date"/>
+                            <field name="amount" widget="monetary"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group>
+                            <field name="account_payment_id"/>
+                            <field name="reminder_sent"/>
+                            <field name="invoice_ids" 
+                                   widget="many2many_tags"
+                                   domain="[('partner_id', '=', partner_id), ('move_type', '=', 'out_invoice'), ('state', '=', 'posted'), ('payment_state', 'in', ['not_paid', 'partial'])]"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note" placeholder="What the client said..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_debt_promise_payment" model="ir.actions.act_window">
+        <field name="name">Payment Promises</field>
+        <field name="res_model">debt.promise.payment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('account_payment_id', '=', None)]</field>
+    </record>
+
+    <record id="view_debt_promise_wizard_form" model="ir.ui.view">
+        <field name="name">debt.promise.wizard.form</field>
+        <field name="model">debt.promise.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="promise_date"/>
+                    <field name="amount" widget="monetary"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="invoice_ids" 
+                           widget="many2many_tags"
+                           domain="[('partner_id', '=', partner_id), ('move_type', '=', 'out_invoice'), ('state', '=', 'posted'), ('payment_state', 'in', ['not_paid', 'partial'])]"
+                           options="{'no_create': True}"/>
+                    <field name="note" placeholder="What the client said about the payment..."/>
+                </group>
+                <footer>
+                    <button string="Create Promise" type="object" name="action_create_promise" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

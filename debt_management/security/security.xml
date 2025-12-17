@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="group_debt_management_administrator" model="res.groups">
+        <field name="name">Debt Management Administrator</field>
+        <field name="category_id" ref="base.module_category_administration"/>
+        <field name="comment">Full access to Debt Management related objects</field>
+    </record>
+
+</odoo>

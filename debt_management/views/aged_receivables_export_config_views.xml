@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_ar_export_config_list" model="ir.ui.view">
+        <field name="name">aged.receivables.export.config.list</field>
+        <field name="model">aged.receivables.export.config</field>
+        <field name="arch" type="xml">
+            <list string="Export Configurations">
+                <field name="name" />
+                <field name="export_format" />
+                <field name="schedule_interval" />
+                <field name="email_recipients" />
+                <field name="next_execution" />
+                <field name="active" widget="boolean_toggle" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ar_export_config_form" model="ir.ui.view">
+        <field name="name">aged.receivables.export.config.form</field>
+        <field name="model">aged.receivables.export.config</field>
+        <field name="arch" type="xml">
+            <form string="Export Configuration">
+                <header>
+                    <button
+                        name="action_test_send"
+                        string="Send Test Email"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not id"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field
+                                name="name"
+                                placeholder="e.g., Weekly Overdue Report"
+                            />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Export Settings">
+                            <field name="export_format" widget="radio" />
+                        </group>
+                        <group>
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options="{'terminology': 'active'}"
+                                />
+                        </group>
+                        <group string="Schedule Settings">
+                            <field name="schedule_interval" />
+                            <field
+                                name="email_recipients"
+                                placeholder="email1@example.com, email2@example.com"
+                            />
+                            <field name="cron_id" invisible="1" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Filters">
+                            <group>
+                                <group string="Client Filters">
+                                    <field
+                                        name="partner_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="region_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True}"
+                                    />
+                                </group>
+                                <group string="Other Filters">
+                                    <field
+                                        name="user_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True}"
+                                    />
+                                    <label
+                                        for="days_overdue_min"
+                                        string="Days Overdue Range"
+                                    />
+                                    <div class="o_row">
+                                        <field name="days_overdue_min" />
+                                        <span> to </span>
+                                        <field name="days_overdue_max" />
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ar_export_config" model="ir.actions.act_window">
+        <field name="name">Scheduled Exports</field>
+        <field name="res_model">aged.receivables.export.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+</odoo>

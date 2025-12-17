@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_followup_report_wizard_form" model="ir.ui.view">
+        <field name="name">followup.report.wizard.form</field>
+        <field name="model">followup.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Follow-up Report">
+                <group>
+                    <group string="Period Settings">
+                        <field name="period_days"/>
+                    </group>
+                    <group string="Filters">
+                        <field name="salesperson_ids" widget="many2many_tags"/>
+                        <field name="partner_category_ids" widget="many2many_tags"/>
+                        <field name="top_debtors_only"/>
+                    </group>
+                </group>
+
+                <notebook invisible="not context.get('show_statistics')">
+                    <page string="Statistics">
+                        <group>
+                            <group string="Overdue Clients">
+                                <field name="clients_with_overdue"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="Overdue Invoice Stage Transitions">
+                                <field name="invoices_1_7_days"/>
+                                <field name="invoices_8_30_days"/>
+                                <field name="invoices_31_60_days"/>
+                                <field name="invoices_61_90_days"/>
+                                <field name="invoices_90_plus_days"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="Payment Promises">
+                                <field name="promises_count"/>
+                                <field name="promises_paid_count"/>
+                                <field name="promises_paid_percentage" 
+                                       widget="percentage"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+                
+                <footer>
+                    <button string="View Report" name="action_view_report" 
+                            type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_followup_report_wizard" model="ir.actions.act_window">
+        <field name="name">Follow-up Report</field>
+        <field name="res_model">followup.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_followup_report_wizard"/>
+    </record>
+</odoo>

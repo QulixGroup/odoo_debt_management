@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_ar_export_wizard_form" model="ir.ui.view">
+        <field name="name">aged.receivables.export.wizard.form</field>
+        <field name="model">aged.receivables.export.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Export AR Dashboard">
+                <group>
+                    <group string="Export Options">
+                        <field name="export_format" widget="radio" />
+                    </group>
+                    <group string="Filters">
+                        <field name="partner_ids" widget="many2many_tags" />
+                        <field name="region_ids" widget="many2many_tags" />
+                        <field name="user_ids" widget="many2many_tags" />
+                        <field name="days_overdue_min" />
+                        <field name="days_overdue_max" />
+                    </group>
+                </group>
+
+                <group string="Schedule Options">
+                    <field name="schedule_export" />
+                    <field
+                        name="config_name"
+                        invisible="not schedule_export"
+                        required="schedule_export"
+                        placeholder="e.g., Weekly Overdue Accounts"
+                    />
+                    <field
+                        name="schedule_interval"
+                        invisible="not schedule_export"
+                    />
+                    <field
+                        name="email_recipients"
+                        invisible="not schedule_export"
+                        placeholder="email1@example.com, email2@example.com"
+                    />
+                </group>
+
+                <footer>
+                    <button
+                        name="action_export"
+                        string="Export Now"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button
+                        name="action_schedule_export"
+                        string="Schedule Export"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not schedule_export"
+                    />
+                    <button
+                        string="Cancel"
+                        class="btn-default"
+                        special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ar_export_wizard" model="ir.actions.act_window">
+        <field name="name">Export AR Dashboard</field>
+        <field name="res_model">aged.receivables.export.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_ar_report" model="ir.actions.report">
+        <field name="name">AR Dashboard Report</field>
+        <field name="model">aged.receivables.dashboard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">debt_management.report_ar_dashboard</field>
+        <field name="report_file">debt_management.report_ar_dashboard</field>
+        <field name="binding_model_id" ref="model_aged_receivables_dashboard" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_ar_dashboard">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Accounts Receivable Dashboard</h2>
+                    <p>Generated on: <span
+                            t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"
+                        /></p>
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Client</th>
+                                <th>Invoice Date</th>
+                                <th>Due Date</th>
+                                <th>Days Overdue</th>
+                                <th>Total / Received</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="record">
+                                <td><span
+                                        t-field="record.invoice_name"
+                                        /></td>
+                                <td><span
+                                        t-field="record.partner_id.name"
+                                    /></td>
+                                <td><span
+                                        t-field="record.invoice_date"
+                                    /></td>
+                                <td><span
+                                        t-field="record.invoice_due_date"
+                                    /></td>
+                                <td>
+                                    <span
+                                        t-field="record.days_overdue"
+                                        t-attf-class="#{record.days_overdue &gt; 30 and 'text-danger' or ''}"
+                                    />
+                                </td>
+                                <td><span t-field="record.total_remainder_display" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <strong>Summary:</strong>
+                            <p>Total Outstanding: <t
+                                    t-esc="sum(docs.mapped('amount_residual'))"
+                                /></p>
+                            <p>Total Records: <t t-esc="len(docs)" /></p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

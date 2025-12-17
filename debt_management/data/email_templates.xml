@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!-- Mail templates are declared in a NOUPDATE block so users can freely customize/delete them -->
+    <data noupdate="1">
+        <!-- Payment promise reminder -->
+        <record id="email_template_payment_promise_reminder" model="mail.template">
+            <field name="name">Payment Promise Reminder</field>
+            <field name="model_id" ref="model_debt_promise_payment"/>
+            <field name="subject">{{ 'Payment Reminder: %s due on %s' % (format_amount(object.amount, object.currency_id), format_date(object.promise_date)) }}</field>
+            <field name="email_from">{{ user.email }}</field>
+            <field name="email_to">{{ object.partner_id.email or '' }}</field>
+            <field name="body_html" type="html">
+                <div class="container py-3" style="font-family: Arial, Helvetica, sans-serif;">
+                    <div class="bg-light text-center py-3">
+                        <div class="card mx-auto shadow border-0" style="max-width: 600px;">
+                            <div class="card-body text-left">
+                                <h2 class="h5">Payment Reminder</h2>
+                                <p class="text-muted">Dear <t t-out="object.partner_id.name or ''"/>,</p>
+                                <p class="text-muted">This is a friendly reminder that you have a payment promise scheduled for <strong><t t-out="format_date(object.promise_date)"/></strong>.</p>
+
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr class="bg-light">
+                                            <td><strong>Promise Date:</strong></td>
+                                            <td><t t-out="format_date(object.promise_date)"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Amount:</strong></td>
+                                            <td><t t-out="format_amount(object.amount, object.currency_id)"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <t t-if="object.note">
+                                    <div class="alert alert-info p-2 mt-3">
+                                        <strong>Note:</strong>
+                                        <div><t t-out="object.note or ''"/></div>
+                                    </div>
+                                </t>
+
+                                <p class="text-muted">If you have any questions or need to discuss alternative payment arrangements, please contact us.</p>
+                                <p>Best regards,<br/><strong>{{ YourCompany }}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

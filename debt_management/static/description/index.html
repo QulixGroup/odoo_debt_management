@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Management for Odoo Enterprise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .oe_container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .oe_container.oe_dark {
+            background-color: #f9f9f9;
+        }
+        
+        .oe_row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .oe_span6 {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .oe_slogan {
+            color: #875A7B;
+            font-size: 2.5em;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        h3.oe_slogan {
+            color: #666;
+            font-size: 1.5em;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+        
+        h2.left-align {
+            text-align: left;
+        }
+        
+        h3.left-align {
+            text-align: left;
+        }
+        
+        .text-justify {
+            text-align: justify;
+        }
+        
+        .oe_mt32 {
+            margin-top: 32px;
+        }
+        
+        .oe_mb32 {
+            margin-bottom: 32px;
+        }
+        
+        .feature-icon {
+            font-size: 2em;
+            color: #875A7B;
+            float: left;
+            margin-right: 20px;
+            width: 48px;
+            text-align: center;
+        }
+        
+        .feature-text {
+            margin-left: 68px;
+            margin-bottom: 32px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #2c5f7d 0%, #3d7fa0 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .hero-section h1 {
+            font-size: 3em;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .hero-section .subtitle {
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .hero-section p {
+            font-size: 1.2em;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            opacity: 0.95;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        
+        .problem-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            margin: 20px 0;
+        }
+        
+        .problem-box h4 {
+            color: #d9534f;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .checkmark {
+            color: #d9534f;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefit-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        ul.feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul.feature-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+        }
+        
+        ul.feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #875A7B;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .industry-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .industry-tag {
+            background: #e8f4f8;
+            color: #2c5f7d;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .comparison-section {
+            background: linear-gradient(135deg, #875A7B 0%, #a97ba0 100%);
+            color: white;
+            padding: 60px 20px;
+        }
+        
+        .comparison-section h2,
+        .comparison-section h3 {
+            color: white;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .comparison-item {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .comparison-item .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .results-section {
+            background: #f0f8ff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 40px auto 0;
+        }
+        
+        .result-item {
+            padding: 20px;
+        }
+        
+        .result-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .result-text {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #2c5f7d;
+        }
+        
+        .compatibility-section {
+            background: #2c5f7d;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .compatibility-section h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            font-size: 1.4em;
+            font-style: italic;
+            color: #875A7B;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .oe_row {
+                flex-direction: column;
+            }
+            
+            .hero-section h1 {
+                font-size: 2em;
+            }
+            
+            .hero-section .subtitle {
+                font-size: 1.2em;
+            }
+            
+            .oe_slogan {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>Debt Management for Odoo Enterprise</h1>
+        <p class="subtitle">Take full control of your receivables. Get paid faster. Work smarter.</p>
+        <p>Late payments hurt cash flow, slow down growth, and overload finance teams with manual work. Debt Management transforms Odoo into a powerful credit control and collections platform — all in one place.</p>
+        <div>
+            <span class="badge">Odoo Enterprise</span>
+            <span class="badge">Credit Control</span>
+            <span class="badge">Collections Management</span>
+        </div>
+    </div>
+
+    <!-- Why You Need It Section -->
+    <section class="oe_container">
+        <h2 class="oe_slogan">Why You Need It</h2>
+        <h3 class="oe_slogan">Common challenges this module solves</h3>
+        <div class="oe_row">
+            <div class="oe_span6">
+                <div class="problem-box">
+                    <h4>The Problems:</h4>
+                    <p><span class="checkmark">✔</span> Too many overdue invoices</p>
+                    <p><span class="checkmark">✔</span> Manual reminders and follow-ups</p>
+                    <p><span class="checkmark">✔</span> No clear visibility of debtor status</p>
+                    <p><span class="checkmark">✔</span> Scattered notes, calls, and emails</p>
+                    <p><span class="checkmark">✔</span> Limited reporting for management</p>
+                </div>
+            </div>
+            <div class="oe_span6">
+                <p class="oe_mb32 text-justify" style="font-size: 1.3em; color: #28a745; font-weight: 500;">
+                    This module solves all of that.
+                </p>
+                <p class="text-justify">
+                    Stop chasing payments manually. Stop losing track of who owes what. Stop wasting time on spreadsheets and scattered communication. Get a complete, integrated solution that puts you back in control of your receivables.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What It Does Section -->
+    <section class="oe_container oe_dark">
+        <h2 class="oe_slogan">What It Does</h2>
+        <h3 class="oe_slogan">Powerful features for complete receivables management</h3>
+        
+        <div class="oe_row oe_mb32">
+            <div class="oe_span6">
+                <div class="feature-icon">📊</div>
+                <div class="feature-text">
+                    <strong style="font-size: 1.2em; color: #875A7B;">Centralized Receivables Dashboard</strong><br><br>
+                    Instant visibility into everything that matters:
+                </div>
+                <ul class="feature-list" style="margin-left: 68px;">
+                    <li>Overdue invoices by ageing</li>
+                    <li>Top debtors</li>
+                    <li>Payments expected this week</li>
+                    <li>Invoices under collection or dispute</li>
+                </ul>
+                <p class="oe_mt32 text-justify" style="margin-left: 68px;">
+                    All your receivables — in one clean, actionable view.
+                </p>
+            </div>
+            <div class="oe_span6">
+                <div class="feature-icon">📧</div>
+                <div class="feature-text">
+                    <strong style="font-size: 1.2em; color: #875A7B;">Smart Follow-ups & Reminders</strong>
+                </div>
+                <ul class="feature-list" style="margin-left: 68px;">
+                    <li>Automated, multi-level reminders</li>
+                    <li>Fully customizable email templates</li>
+                    <li>Reminders before and after due date</li>
+                    <li>Tracking of sent notifications</li>
+                    <li>No more forgotten follow-ups</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="oe_row">
+            <div class="oe_span6">
+                <div class="feature-icon">📝</div>
+                <div class="feature-text">
+                    <strong style="font-size: 1.2em; color: #875A7B;">Collection Actions Tracking</strong><br><br>
+                    Log and track everything:
+                </div>
+                <ul class="feature-list" style="margin-left: 68px;">
+                    <li>Calls and emails</li>
+                    <li>Customer responses</li>
+                    <li>Internal notes</li>
+                    <li>Planned next actions</li>
+                </ul>
+                <p class="oe_mt32 text-justify" style="margin-left: 68px;">
+                    A full collection history — per invoice and per customer.
+                </p>
+            </div>
+            <div class="oe_span6">
+                <div class="feature-icon">📈</div>
+                <div class="feature-text">
+                    <strong style="font-size: 1.2em; color: #875A7B;">Powerful Reports & Analytics</strong>
+                </div>
+                <ul class="feature-list" style="margin-left: 68px;">
+                    <li>Aged Receivable Report</li>
+                    <li>Overdue Invoices</li>
+                    <li>Top 10 Debtors</li>
+                    <li>Expected Payments</li>
+                </ul>
+                <p class="oe_mt32 text-justify" style="margin-left: 68px;">
+                    Make data-driven decisions instead of chasing spreadsheets.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who It's For Section -->
+    <section class="oe_container">
+        <h2 class="oe_slogan">Who It's For</h2>
+        <h3 class="oe_slogan">Perfect for teams that need better credit control</h3>
+        <div class="oe_row">
+            <div class="oe_span6">
+                <h3 style="color: #875A7B; margin-bottom: 20px;">👥 Target Users</h3>
+                <ul class="feature-list">
+                    <li>Finance & Accounting teams</li>
+                    <li>CFOs & Finance Managers</li>
+                    <li>Companies with B2B sales</li>
+                    <li>Businesses with recurring invoicing</li>
+                </ul>
+            </div>
+            <div class="oe_span6">
+                <h3 style="color: #875A7B; margin-bottom: 20px;">🏭 Industries</h3>
+                <div class="industry-tags">
+                    <span class="industry-tag">Manufacturing</span>
+                    <span class="industry-tag">Distribution</span>
+                    <span class="industry-tag">Logistics</span>
+                    <span class="industry-tag">IT & SaaS</span>
+                    <span class="industry-tag">Professional Services</span>
+                    <span class="industry-tag">Retail (B2B)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why It's Better Section -->
+    <section class="comparison-section">
+        <div class="oe_container">
+            <h2 class="oe_slogan">Why It's Better Than Standard Odoo</h2>
+            <h3 class="oe_slogan">Enterprise-grade features designed for serious credit control</h3>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <div class="icon">🚀</div>
+                    <strong>Dedicated collections workspace</strong>
+                </div>
+                <div class="comparison-item">
+                    <div class="icon">🚀</div>
+                    <strong>Advanced debtor analytics</strong>
+                </div>
+                <div class="comparison-item">
+                    <div class="icon">🚀</div>
+                    <strong>Structured follow-up processes</strong>
+                </div>
+                <div class="comparison-item">
+                    <div class="icon">🚀</div>
+                    <strong>Full audit trail of actions</strong>
+                </div>
+                <div class="comparison-item">
+                    <div class="icon">🚀</div>
+                    <strong>Enterprise-ready scalability</strong>
+                </div>
+            </div>
+            <p style="font-size: 1.3em; margin-top: 40px; font-weight: 500;">
+                No spreadsheets. No chaos. No missed payments.
+            </p>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+        <h2 class="oe_slogan">The Results</h2>
+        <h3 class="oe_slogan">Transform your cash flow management</h3>
+        <div class="results-grid">
+            <div class="result-item">
+                <div class="result-icon">💰</div>
+                <div class="result-text">Faster payments</div>
+            </div>
+            <div class="result-item">
+                <div class="result-icon">📉</div>
+                <div class="result-text">Reduced DSO</div>
+            </div>
+            <div class="result-item">
+                <div class="result-icon">📊</div>
+                <div class="result-text">Better cash flow forecasting</div>
+            </div>
+            <div class="result-item">
+                <div class="result-icon">⚙️</div>
+                <div class="result-text">Less manual work</div>
+            </div>
+            <div class="result-item">
+                <div class="result-icon">🧠</div>
+                <div class="result-text">More control, less stress</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compatibility Section -->
+    <div class="compatibility-section">
+        <h2>Fully Compatible with Odoo Enterprise</h2>
+        <p style="font-size: 1.2em; margin-top: 20px;">
+            <strong>Odoo Edition:</strong> Enterprise<br>
+            <strong>Version:</strong> Compatible with latest Odoo frameworks
+        </p>
+        <p style="margin-top: 30px; font-size: 1.1em;">
+            Your complete receivables management solution for Odoo
+        </p>
+    </div>
+
+    <!-- Tagline -->
+    <div class="tagline">
+        "Because your cash flow deserves more than reminders."
+    </div>
+</body>
+</html>

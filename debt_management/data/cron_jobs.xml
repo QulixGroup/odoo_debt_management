@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_send_payment_promise_reminders" model="ir.cron">
+        <field name="name">Send Payment Promise Reminders</field>
+        <field name="model_id" ref="model_debt_promise_payment"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_send_payment_reminders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_check_followup_responses" model="ir.cron">
+        <field name="name">Check Follow-up Responses</field>
+        <field name="model_id" ref="model_account_followup_pending_check"/>
+        <field name="state">code</field>
+        <field name="code">model.check_pending_responses()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_environment_promise_assign_status" model="ir.cron">
+        <field name="name">Assign Promise status</field>
+        <field name="model_id" ref="model_debt_promise_payment"/>
+        <field name="state">code</field>
+        <field name="code">model.assign_status()</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+{
+    "name": "Debt Management",
+    "version": "18.0.0.0",
+    "category": "Tools",
+    "author": "Qulix",
+    "company": "Qulix",
+    "maintainer": "Qulix",
+    "summary": "Collect what you owed automatically",
+    "depends": ["account", "mail", "account_reports", "account_followup"],
+    "data": [
+        "data/email_templates.xml",
+        "data/cron_jobs.xml",
+        "views/followup_report_wizard_views.xml",
+        "views/partner_views.xml",
+        "views/aged_receivables_export_wizard_views.xml",
+        "views/aged_receivables_export_config_views.xml",
+        "views/account_move_views.xml",
+        "views/payment_promise_views.xml",
+        "views/account_followup_views.xml",
+        "security/security.xml",
+        "views/menus.xml",
+        "security/ir.model.access.csv",
+    ],
+    "assets": {
+        "web.assets_backend": [
+            "debt_management/static/src/components/**/*",
+        ],
+        "web.assets_frontend": [],
+    },
+    "license": "AGPL-3",
+    "installable": True,
+    "auto_install": False,
+    "application": True,
+}

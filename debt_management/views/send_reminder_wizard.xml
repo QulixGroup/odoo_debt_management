@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_send_reminder_wizard_form" model="ir.ui.view">
+        <field name="name">send.reminder.wizard.form</field>
+        <field name="model">send.reminder.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send Payment Reminder">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" 
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="template_id" 
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="allow_template_edit"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <field name="invoice_ids" 
+                               widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                    </group>
+                    
+                    <notebook invisible="not template_id or not invoice_ids">
+                        <page string="Preview" name="preview">
+                            <group>
+                                <field name="subject"/>
+                                <field name="body_html" 
+                                       widget="html" 
+                                       options="{'style-inline': True}"/>
+                            </group>
+                            <div class="alert alert-info" role="alert">
+                                <strong>Note:</strong> This is a preview based on the first selected invoice. 
+                                Each invoice will receive a personalized email.
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                
+                <footer>
+                    <button string="Send Reminder" 
+                            name="action_send_reminder" 
+                            type="object" 
+                            class="btn-primary"
+                            data-hotkey="q"/>
+                    <button string="Cancel" 
+                            class="btn-secondary" 
+                            special="cancel"
+                            data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_send_reminder_wizard" model="ir.actions.act_window">
+        <field name="name">Send Payment Reminder</field>
+        <field name="res_model">send.reminder.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

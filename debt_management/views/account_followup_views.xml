@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_followup_line_form_inherit" model="ir.ui.view">
+        <field name="name">account.followup.followup.line.form.inherit</field>
+        <field name="model">account_followup.followup.line</field>
+        <field name="inherit_id" ref="account_followup.view_account_followup_followup_line_form"/>
+        <field name="arch" type="xml">
+            <field name="create_activity" position="after">
+                <field name="enable_response_check"/>
+                <field name="response_wait_days" invisible="enable_response_check == False"/>
+            </field>
+        </field>
+    </record>
+</odoo>

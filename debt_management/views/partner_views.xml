@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="res_partner_view_form" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit.debt.management</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="action_create_payment_promise" type="object"
+                            class="oe_stat_button" icon="fa-handshake-o"
+                            groups="account.group_account_invoice">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Payment</span>
+                            <span class="o_stat_text">Promise</span>
+                        </div>
+                    </button>
+                    <button name="action_view_payment_promises" type="object"
+                            class="oe_stat_button" icon="fa-list"
+                            groups="account.group_account_invoice"
+                            invisible="debt_promise_count == 0">
+                        <field name="debt_promise_count" widget="statinfo"/>
+                    </button>
+                </div>
+                <data>
+                    <xpath expr="//notebook/page[@name='internal_notes']" position="after">
+                        <page string="Invoice Communications" invisible="not invoice_message_ids">
+                            <field name="invoice_message_ids" widget="one2many_list" nolabel="1">
+                                <list string="Invoice Messages" create="false" edit="false" default_group_by="res_id">
+                                    <field name="res_id" string="Invoice" widget="many2one_reference" width="120px"/>
+                                    <field name="model" column_invisible="1"/>
+                                    <field name="date" string="Date" widget="datetime" options="{'show_time': false}"/>
+                                    <field name="body" widget="html" />
+                                </list>
+                            </field>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_partner_list_top_debtors" model="ir.ui.view">
+            <field name="name">res.partner.list.top.debtors</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <list string="Top Ten Debtors">
+                    <field name="name" string="Partner Name" class="fw-bold"/>
+                    <field name="total_overdue" string="Total Overdue" widget="monetary"/>
+                    <field name="currency_id" column_invisible="1"/>
+                    <field name="phone" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <button name="action_view_overdue_invoices"
+                            type="object"
+                            string="View Overdue Invoices"
+                            icon="fa-file-text-o"
+                            class="btn-link"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_display_top_ten_debtors" model="ir.actions.server">
+            <field name="name">Top Ten Debtors</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">
+        action = model.action_show_top_ten_debtors()
+            </field>
+        </record>
+    </data>
+</odoo>
