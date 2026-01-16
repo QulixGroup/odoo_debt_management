@@ -28,7 +28,7 @@
         ],
         "web.assets_frontend": [],
     },
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "installable": True,
     "auto_install": False,
     "application": True,
