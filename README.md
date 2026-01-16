@@ -1,6 +1,6 @@
-# Debt Management
+# Debts Management
 
-**Debt Management for Odoo Enterprise**
+**Debts Management for Odoo Enterprise**
 
 This module extends Odoo 18 Accounting with comprehensive tools to manage and automate accounts receivable follow-ups. Take full control of your receivables, get paid faster, and work smarter with automated reminders, powerful analytics, and structured collection workflows.
 
@@ -19,10 +19,10 @@ This module extends Odoo 18 Accounting with comprehensive tools to manage and au
 1. Download the module and place it in your Odoo addons folder
 2. Install optional Python dependencies for XLSX support:
    ```bash
-   python -m pip install -r addons/debt_management/requirements.txt
+   python -m pip install -r addons/debts_management/requirements.txt
    ```
 3. From the Odoo home screen, go to **Apps** → **Update Apps List**
-4. Search for "Debt Management" and click **Install**
+4. Search for "Debts Management" and click **Install**
 
 ## Configuration
 
@@ -81,7 +81,7 @@ Modify automated follow-up timing in **Settings → Technical → Scheduled Acti
 ### For Management:
 
 **Access Dashboard:**
-- Navigate to **Debt Management → Receivables Dashboard**
+- Navigate to **Debts Management → Receivables Dashboard**
 - View real-time metrics on:
   - Total outstanding amounts
   - Overdue by aging buckets
