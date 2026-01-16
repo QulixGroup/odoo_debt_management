@@ -68,7 +68,7 @@ class AgedReceivablesExportWizard(models.TransientModel):
 
     def _export_pdf(self, records):
         """Generate PDF report"""
-        return self.env.ref("debt_management.action_ar_report").report_action(
+        return self.env.ref("debts_management.action_ar_report").report_action(
             records
         )
 

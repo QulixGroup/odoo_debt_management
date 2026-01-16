@@ -72,8 +72,8 @@
         <field name="name">AR Dashboard Report</field>
         <field name="model">aged.receivables.dashboard</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">debt_management.report_ar_dashboard</field>
-        <field name="report_file">debt_management.report_ar_dashboard</field>
+        <field name="report_name">debts_management.report_ar_dashboard</field>
+        <field name="report_file">debts_management.report_ar_dashboard</field>
         <field name="binding_model_id" ref="model_aged_receivables_dashboard" />
         <field name="binding_type">report</field>
     </record>

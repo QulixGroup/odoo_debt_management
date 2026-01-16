@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
-    <t t-name="debt_management.SalespersonBalanceFilters"  t-inherit="account_reports.AccountReportFiltersCustomizable">
+    <t t-name="debts_management.SalespersonBalanceFilters"  t-inherit="account_reports.AccountReportFiltersCustomizable">
         <xpath expr="//div[@id='filter_extra_options']" position="replace">
             <div id="filter_salesperson">    
                 <t t-call="account_reports.AccountReportFilterExtraOptions"/>

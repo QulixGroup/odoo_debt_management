@@ -8,7 +8,7 @@ class AccountPayment(models.Model):
         """Link payment to matching promises after validation.
 
         Override the standard action_validate method to associate payments
-        with any debt payment promises related to the invoices being paid.
+        with any debts payment promises related to the invoices being paid.
         """
         res = super(AccountPayment, self).action_validate()
         for payment in self:

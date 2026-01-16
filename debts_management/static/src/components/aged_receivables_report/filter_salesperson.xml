@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
-    <t t-name="debt_management.AccountReportFilterSalesPerson" t-inherit="account_reports.AccountReportFilterExtraOptions" t-inherit-mode="extension">
+    <t t-name="debts_management.AccountReportFilterSalesPerson" t-inherit="account_reports.AccountReportFilterExtraOptions" t-inherit-mode="extension">
         <xpath expr="//DropdownItem[contains(@class, 'filter_show_all_hook')]" position="after">
             <t>
                 <Dropdown

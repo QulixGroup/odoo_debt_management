@@ -76,7 +76,7 @@ class AgedReceivablesExportConfig(models.Model):
     def _generate_pdf_attachment(self, records):
         """Generate PDF and return as attachment"""
         self.ensure_one()
-        report = self.env.ref("debt_management.action_ar_report")
+        report = self.env.ref("debts_management.action_ar_report")
         pdf_content, _ = self.env[
             'ir.actions.report'
         ]._render_qweb_pdf(report, res_ids=records.ids)
@@ -194,7 +194,7 @@ class AgedReceivablesExportConfig(models.Model):
             cron_vals = {
                 "name": f"AR Export: {self.name}",
                 "model_id": self.env.ref(
-                    "debt_management.model_aged_receivables_export_config"
+                    "debts_management.model_aged_receivables_export_config"
                 ).id,
                 "state": "code",
                 "code": f"model.browse({self.id}).send_email_with_attachment()",

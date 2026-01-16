@@ -5,7 +5,7 @@ from odoo import models, fields, api
 
 class DebtPromisePayment(models.Model):
     _name = "debt.promise.payment"
-    _description = "Debt Payment Promise"
+    _description = "Debts Payment Promise"
     _order = "promise_date desc"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
@@ -63,7 +63,7 @@ class DebtPromisePayment(models.Model):
         )
 
         template = self.env.ref(
-            "debt_management.email_template_payment_promise_reminder"
+            "debts_management.email_template_payment_promise_reminder"
         )
         for promise in promises:
             template.send_mail(promise.id, force_send=True)

@@ -7,7 +7,7 @@ class SalespersonCustomHandler(models.AbstractModel):
     def _get_custom_display_config(self):
         return {
             "components": {
-                "AccountReportFilters": "debt_management.SalespersonBalanceFilters",
+                "AccountReportFilters": "debts_management.SalespersonBalanceFilters",
             },
         }
 

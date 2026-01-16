@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Debt Management",
+    "name": "Debts Management",
     "version": "18.0.0.0",
     "category": "Tools",
     "author": "Qulix",
@@ -24,7 +24,7 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "debt_management/static/src/components/**/*",
+            "debts_management/static/src/components/**/*",
         ],
         "web.assets_frontend": [],
     },

@@ -137,7 +137,7 @@ class Partner(models.Model):
             "views": [
                 (
                     self.env.ref(
-                        "debt_management.view_partner_list_top_debtors"
+                        "debts_management.view_partner_list_top_debtors"
                     ).id,
                     "list",
                 ),
